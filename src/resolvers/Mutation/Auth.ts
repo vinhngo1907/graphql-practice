@@ -1,14 +1,15 @@
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { Context, SignupArgs } from "../../types";
+import { AuthPayload, Context, SignupArgs } from "../../types";
 import { JWT_SIGNATURE } from "../../keys";
 
 export const AuthResolvers = {
-    signin: async (_: any, args: SignupArgs, { prisma }: Context) => {
-        const isEmail = validator.isEmail(args.credential.email);
-        const isPass = validator.isLength(args.credential.password, { min: 6 });
-        const isUserName = validator.isLength(args.name, { min: 6, max: 25 });
+    signin: async (_: any, args: SignupArgs, { prisma }: Context): Promise<AuthPayload> => {
+        const { name, bio, credential: { email, password } } = args;
+        const isEmail = validator.isEmail(email);
+        const isPass = validator.isLength(password, { min: 6 });
+        const isUserName = validator.isLength(name, { min: 6, max: 25 });
 
         if (!isEmail || !isPass || !isUserName) {
             return {
@@ -18,7 +19,6 @@ export const AuthResolvers = {
         }
 
         try {
-            const { name, bio, credential: { email, password } } = args;
             const check = await prisma.user.findUnique({
                 where: {
                     email: email
@@ -26,7 +26,7 @@ export const AuthResolvers = {
             });
 
             if (check) return {
-                userErros: [{ message: "This user already exist" }],
+                userErrors: [{ message: "This user already exist" }],
                 token: null
             };
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -81,10 +81,10 @@ export const AuthResolvers = {
                     userErrors: [{ message: "Email or/and password is incorrect" }]
                 }
             }
-            const token = await jwt.sign({ userId: user.id }, JWT_SIGNATURE, { expiresIn: '1d' });
+
             return {
                 userErrors: [],
-                token
+                token: jwt.sign({ userId: user.id }, JWT_SIGNATURE, { expiresIn: '1d' })
             }
         } catch (error) {
             return {

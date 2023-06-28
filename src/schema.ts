@@ -31,6 +31,8 @@ const typeDefs = gql`
 
     type Mutation {
         postCreate(post: PostInput!): PostPayload!
+		signup(credential: Credential!, name: String!, bio: String!): AuthPayload!
+		signin(credential: Credential!): AuthPayload!
     }
 
     type AuthPayload {

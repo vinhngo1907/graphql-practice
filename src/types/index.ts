@@ -1,10 +1,10 @@
 import { PrismaClient, Prisma, User, Post } from '@prisma/client';
 
 export type Context = {
-  prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>;
-  userInfo: {
-    userId: number;
-  };
+    prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>;
+    userInfo: {
+        userId: number;
+    };
 };
 
 export type PostCreateArgs = {
@@ -23,9 +23,14 @@ type UserErrors =
     }[]
     | {};
 
-export type PostPayload ={
+export type PostPayload = {
     userErrors: UserErrors;
     post: null | Post;
+}
+
+export type AuthPayload = {
+    userErrors: UserErrors;
+    token: null | string;
 }
 
 
@@ -53,3 +58,16 @@ export type ProfileParent = {
     bio: string;
     userId: string;
 }
+
+export type CanUserMutatePost = {
+    userId: number;
+    postId: number;
+    prisma: Context['prisma'];
+}
+
+export type PostPayloadType = {
+    userErrors: {
+        message: string;
+    }[];
+    post: Post | Prisma.Prisma__PostClient<Post> | null;
+};
