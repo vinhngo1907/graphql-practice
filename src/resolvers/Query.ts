@@ -5,7 +5,7 @@ export const Query = {
         if (!userInfo) {
             return prisma.user.findUnique({
                 where: {
-                    id: userInfo.userId
+                    id: userInfo['userId']
                 }
             })
         }
