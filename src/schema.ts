@@ -36,26 +36,26 @@ const typeDefs = gql`
     type AuthPayload {
 		userErrors: [UserError!]
 		token: String
-	  }
+	}
 	
-	  type PostPayload {
+	type PostPayload {
 		userErrors: [UserError!]
 		post: Post
-	  }
+	}
 	
-	  type PostsGet {
+	type PostsGet {
 		userErrors: [UserError!]
 		posts: [Post]
-	  }
+	}
 	
-	  type UserError {
+	type UserError {
 		message: String!
-	  }
+	}
 	
-	  input PostInput {
+	input PostInput {
 		title: String
 		content: String
-	  }
+	}
 	
 	input Credential {
 		email: String!
