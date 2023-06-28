@@ -1,10 +1,9 @@
-import {
-    PrismaClient,
-    // Prisma, User, Post
-} from "@prisma/client";
+import { PrismaClient, Prisma, User, Post } from "@prisma/client";
 
 
 export type Context = {
+    prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>;
+    userInfo: {}
 
 };
 
@@ -41,10 +40,16 @@ export type UserPayload = {
 }
 
 export type SignupArgs = {
-    credential:{
+    credential: {
         email: string;
         password: string;
     };
     name: string;
     bio: string;
+}
+
+export type ProfileParent = {
+    id: number;
+    bio: string;
+    userId: string;
 }

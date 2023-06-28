@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  # v-blog:
+  #   build: .
+  #   container_name: book_exchange_auth_service
+  #   env_file: .env
+  #   ports:
+  #     - "${HTTP_SERVER_PORT}:${HTTP_SERVER_PORT}"
+  #   # restart: always
+  #   networks:
+  #     - common
+  #   depends_on:
+  postgres:
+    container_name: postgres
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=aioshima
+      - POSTGRES_DB=example
+    networks:
+      - common
+  
+  pg-admin:
+    container_name: pg_admin
+    image: dpage/pgadmin4:6
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PG_USER}
+      - PGADMIN_DEFAULT_PASSWORD=${PG_PASS}
+      - PGADMIN_LISTEN_PORT=5050
+    ports:
+      - 5050:5050
+    depends_on:
+      - postgres
+    networks:
+      - common
+networks:
+  common:
