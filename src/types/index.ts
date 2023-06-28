@@ -7,7 +7,6 @@ export type Context = {
   };
 };
 
-
 export type PostCreateArgs = {
     post: { title: string, content: string }
 };
@@ -24,16 +23,16 @@ type UserErrors =
     }[]
     | {};
 
-// export type PostPayload ={
-//     userErrors: UserErrors;
-//     post: null | Post;
-// }
+export type PostPayload ={
+    userErrors: UserErrors;
+    post: null | Post;
+}
 
 
-// export type PostsGet = {
-//     userErrors: UserErrors;
-//     posts: null | Post[];
-// }
+export type PostsGet = {
+    userErrors: UserErrors;
+    posts: null | Post[];
+}
 
 export type UserPayload = {
     userErrors: UserErrors;
