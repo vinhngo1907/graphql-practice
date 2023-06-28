@@ -1,11 +1,11 @@
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { AuthPayload, Context, SignupArgs } from "../../types";
+import { UserPayload, Context, SignupArgs } from "../../types";
 import { JWT_SIGNATURE } from "../../keys";
 
 export const AuthResolvers = {
-    signin: async (_: any, args: SignupArgs, { prisma }: Context): Promise<AuthPayload> => {
+    signup: async (_: any, args: SignupArgs, { prisma }: Context): Promise<UserPayload> => {
         const { name, bio, credential: { email, password } } = args;
         const isEmail = validator.isEmail(email);
         const isPass = validator.isLength(password, { min: 6 });
@@ -57,7 +57,7 @@ export const AuthResolvers = {
         }
     },
 
-    signup: async (_: any, { credential }: SignupArgs, { prisma }: Context) => {
+    signin: async (_: any, { credential }: SignupArgs, { prisma }: Context): Promise<UserPayload> => {
         try {
             const { email, password } = credential;
             const isEmail = validator.isEmail(email);
@@ -78,7 +78,8 @@ export const AuthResolvers = {
             const validPass = await bcrypt.compare(password, user?.password);
             if (!validPass) {
                 return {
-                    userErrors: [{ message: "Email or/and password is incorrect" }]
+                    userErrors: [{ message: "Email or/and password is incorrect" }],
+                    token: null
                 }
             }
 

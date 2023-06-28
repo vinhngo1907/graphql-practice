@@ -28,12 +28,6 @@ export type PostPayload = {
     post: null | Post;
 }
 
-export type AuthPayload = {
-    userErrors: UserErrors;
-    token: null | string;
-}
-
-
 export type PostsGet = {
     userErrors: UserErrors;
     posts: null | Post[];
