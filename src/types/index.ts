@@ -1,4 +1,5 @@
-import {PrismaClient, 
+import {
+    PrismaClient,
     // Prisma, User, Post
 } from "@prisma/client";
 
@@ -27,3 +28,23 @@ type UserErrors =
 //     userErrors: UserErrors;
 //     post: null | Post;
 // }
+
+
+// export type PostsGet = {
+//     userErrors: UserErrors;
+//     posts: null | Post[];
+// }
+
+export type UserPayload = {
+    userErrors: UserErrors;
+    token: string | null;
+}
+
+export type SignupArgs = {
+    credential:{
+        email: string;
+        password: string;
+    };
+    name: string;
+    bio: string;
+}
