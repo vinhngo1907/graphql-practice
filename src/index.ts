@@ -3,13 +3,11 @@ import { PrismaClient } from "@prisma/client";
 
 import typeDefs from "./schema";
 import { getUserFromToken } from "./utils/get-user-from-token";
-import { Query } from "./resolvers";
+import { Query, Mutation, Profile, Post, User } from "./resolvers";
 
 export const prisma = new PrismaClient();
 
-const resolvers = {
-    Query
-}
+const resolvers = { Query, Mutation, Profile, Post, User };
 
 const server = new ApolloServer({
     typeDefs,

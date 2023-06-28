@@ -71,3 +71,5 @@ export type PostPayloadType = {
     }[];
     post: Post | Prisma.Prisma__PostClient<Post> | null;
 };
+
+export type BatchUser = (ids: readonly number[]) => Promise<User[]>;

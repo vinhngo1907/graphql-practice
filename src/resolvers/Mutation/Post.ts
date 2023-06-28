@@ -32,5 +32,6 @@ export const PostResolvers = {
                 post: null
             }
         }
-    }
+    },
+    // postUpdate: async(_:any, {}: post)
 }
