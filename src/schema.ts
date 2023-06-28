@@ -31,7 +31,11 @@ const typeDefs = gql`
 
     type Mutation {
         postCreate(post: PostInput!): PostPayload!
-		signup(credential: Credential!, name: String!, bio: String!): AuthPayload!
+        postUpdate(postId: ID!, post: PostInput!): PostPayload!
+        postDelete(postId: ID!): PostPayload!
+		postPublish(postId: ID!): PostPayload!
+		postUnPublish(postId: ID!): PostPayload!
+        signup(credential: Credential!, name: String!, bio: String!): AuthPayload!
 		signin(credential: Credential!): AuthPayload!
     }
 
