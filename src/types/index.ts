@@ -1,13 +1,12 @@
 import { PrismaClient, Prisma, User, Post } from '@prisma/client';
 
-
 export type Context = {
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>;
-    userInfo: {
-        userId: number;
-    };
-
+  prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>;
+  userInfo: {
+    userId: number;
+  };
 };
+
 
 export type PostCreateArgs = {
     post: { title: string, content: string }

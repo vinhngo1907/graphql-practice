@@ -56,3 +56,4 @@ const typeDefs = gql`
         password: String!
     }
 `
+export default typeDefs;
