@@ -3,12 +3,17 @@ import { PrismaClient } from "@prisma/client";
 
 import typeDefs from "./schema";
 import { getUserFromToken } from "./utils/get-user-from-token";
+import { Query } from "./resolvers";
 
 export const prisma = new PrismaClient();
 
+const resolvers = {
+    Query
+}
+
 const server = new ApolloServer({
     typeDefs,
-    // resolvers,
+    resolvers,
     context: ({ req }) => {
         const userInfo = getUserFromToken(req.headers.authorization);
         return {
