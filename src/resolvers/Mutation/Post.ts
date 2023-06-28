@@ -60,21 +60,20 @@ export const PostResolvers = {
             };
 
         try {
+            let postPayload = { title, content }
+            if (!title) delete postPayload.title;
+            if (!content) delete postPayload.content;
+
             const updatedPost = await prisma.post.update(
                 {
                     where: { id: +postId },
                     data: {
-                        title, content
+                        ...postPayload
                     }
                 },
 
             )
-            if (!updatedPost) {
-                return {
-                    userErrors: [{ message: "Post not found or user not authorized" }],
-                    post: null
-                }
-            }
+
             return {
                 userErrors: [],
                 post: updatedPost
