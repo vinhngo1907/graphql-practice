@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma, User, Post } from "@prisma/client";
+import { PrismaClient, Prisma, User, Post } from '@prisma/client';
 
 
 export type Context = {
