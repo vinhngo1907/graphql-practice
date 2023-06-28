@@ -44,7 +44,11 @@ export const AuthResolvers = {
                     userId: newUser.id,
                 },
             });
-            const token = await jwt.sign({ userId: newUser.id }, JWT_SIGNATURE);
+            const token = await jwt.sign({ userId: newUser.id }, JWT_SIGNATURE, { expiresIn: '1d' });
+            return {
+                userErrors: [],
+                token
+            }
         } catch (error) {
             return {
                 userErrors: [error],
@@ -76,6 +80,11 @@ export const AuthResolvers = {
                 return {
                     userErrors: [{ message: "Email or/and password is incorrect" }]
                 }
+            }
+            const token = await jwt.sign({ userId: user.id }, JWT_SIGNATURE, { expiresIn: '1d' });
+            return {
+                userErrors: [],
+                token
             }
         } catch (error) {
             return {
