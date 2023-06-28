@@ -56,7 +56,7 @@ export type SignupArgs = {
 export type ProfileParent = {
     id: number;
     bio: string;
-    userId: string;
+    userId: number;
 }
 
 export type CanUserMutatePost = {
