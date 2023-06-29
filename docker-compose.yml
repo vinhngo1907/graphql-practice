@@ -1,15 +1,24 @@
 version: '3.8'
 services:
-  # v-blog:
-  #   build: .
-  #   container_name: book_exchange_auth_service
-  #   env_file: .env
-  #   ports:
-  #     - "${HTTP_SERVER_PORT}:${HTTP_SERVER_PORT}"
-  #   # restart: always
-  #   networks:
-  #     - common
-  #   depends_on:
+  v-blog:
+    build:
+      context: .
+      target: development
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3000:3000
+    command: npm run start:dev
+    networks:
+      - common
+    environment:
+      PORT: 3000
+      DATABASE_URL: "postgres://postgres:aioshima@localhost:5432/example?schema=public"
+      NODE_ENV: 'development'
+    depends_on:
+      - postgres
+
   postgres:
     container_name: postgres
     image: postgres
