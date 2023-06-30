@@ -8,6 +8,10 @@ RUN npm install
 
 COPY . .
 
+RUN npx prisma generate
+
+# RUN npx prisma migrate dev --name
+
 RUN npm run build
 
 CMD [ "node", "dist/index.js" ]

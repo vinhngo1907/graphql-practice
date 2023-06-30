@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   v-blog:
+    container_name: v-blog
     build:
       context: .
       target: development
@@ -9,12 +10,12 @@ services:
       - /usr/src/app/node_modules
     ports:
       - 4000:4000
-    command: npm run start:dev
+    command: npm run dev
     networks:
       - common
     environment:
       PORT: 4000
-      DATABASE_URL: "postgres://postgres:aioshima@localhost:5432/example?schema=public"
+      DATABASE_URL: "postgres://postgres:aioshima@postgres:5432/example?schema=public"
       NODE_ENV: 'development'
     depends_on:
       - postgres
